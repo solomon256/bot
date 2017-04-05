@@ -1,52 +1,38 @@
 <?php
+// parameters
+$hubVerifyToken = 'TOKEN12345bbaacc';
+$accessToken = "EAAIrEaAEYeABAKn8ZAf88b8OsSSZAhgVrM9s7QHTlYNuE5bONVce2rfsyswzbenf98nkLlatxaFgditzXMZBlZCNOuvt8vryM8G6JJfwXS4t12wt3GoFIzCMbId9tC0bUnM1rklJZC72oOYrZBzbcZANZCGINmk9zRrVuD5YXLxD6QZDZD";
 
-/*
-* This file is part of GeeksWeb Bot (GWB).
-*
-* GeeksWeb Bot (GWB) is free software; you can redistribute it and/or modify
-* it under the terms of the GNU General Public License version 3
-* as published by the Free Software Foundation.
-* 
-* GeeksWeb Bot (GWB) is distributed in the hope that it will be useful,
-* but WITHOUT ANY WARRANTY; without even the implied warranty of
-* MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-* GNU General Public License for more details.  <http://www.gnu.org/licenses/>
-*
-* Author(s):
-*
-* © 2015 Kasra Madadipouya <kasra@madadipouya.com>
-*
-*/
-require 'vendor/autoload.php';
+// check token at setup
+if ($_REQUEST['hub_verify_token'] === $hubVerifyToken) {
+  echo $_REQUEST['hub_challenge'];
+  exit;
+}
 
-$client = new Zelenin\Telegram\Bot\Api(''); // Set your access token
-$url = ''; // URL RSS feed
-$update = json_decode(file_get_contents('php://input'));
+// handle bot's anwser
+$input = json_decode(file_get_contents('php://input'), true);
 
-//your app
-try {
+$senderId = $input['entry'][0]['messaging'][0]['sender']['id'];
+$messageText = $input['entry'][0]['messaging'][0]['message']['text'];
 
-    if($update->message->text == '/email')
-    {
-    	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
-    	$response = $client->sendMessage([
-        	'chat_id' => $update->message->chat->id,
-        	'text' => "You can send email to : Kasra@madadipouya.com"
-     	]);
-    }
-    else if($update->message->text == '/help')
-    {
-    	$response = $client->sendChatAction(['chat_id' => $update->message->chat->id, 'action' => 'typing']);
-    	$response = $client->sendMessage([
-    		'chat_id' => $update->message->chat->id,
-    		'text' => "List of commands :\n /email -> Get email address of the owner \n /latest -> Get latest posts of the blog 
-    		/help -> Shows list of available commands"
-    		]);
 
-    }
-    else if($update->message->text == '/latest')
-    {
-    		Feed::$cacheDir 	= __DIR__ . '/cache';
+$answer = "I don't understand. Ask me 'hi'.";
+if($messageText == "hi") {
+    $answer = "Hello";
+}
+
+$response = [
+    'recipient' => [ 'id' => $senderId ],
+    'message' => [ 'text' => $answer ]
+];
+$ch = curl_init('https://graph.facebook.com/v2.6/me/messages?access_token='.$accessToken);
+curl_setopt($ch, CURLOPT_POST, 1);
+curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($response));
+curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
+curl_exec($ch);
+curl_close($ch);
+
+//based on http://stackoverflow.com/questions/36803518
 			Feed::$cacheExpire 	= '5 hours';
 			$rss 		= Feed::loadRss($url);
 			$items 		= $rss->item;
