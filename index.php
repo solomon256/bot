@@ -8,7 +8,6 @@ if ($_REQUEST['hub_verify_token'] === $hubVerifyToken) {
   echo $_REQUEST['hub_challenge'];
   exit;
 }
-
 // handle bot's anwser
 $input = json_decode(file_get_contents('php://input'), true);
 
@@ -16,11 +15,10 @@ $senderId = $input['entry'][0]['messaging'][0]['sender']['id'];
 $messageText = $input['entry'][0]['messaging'][0]['message']['text'];
 
 
-$answer = "I don't understand. Ask me 'hi'.";
+
 if($messageText == "hi") {
     $answer = "Hello";
-}
-
+}else  {echo $answer=" invalid";}
 $response = [
     'recipient' => [ 'id' => $senderId ],
     'message' => [ 'text' => $answer ]
