@@ -14,11 +14,11 @@ $input = json_decode(file_get_contents('php://input'), true);
 $senderId = $input['entry'][0]['messaging'][0]['sender']['id'];
 $messageText = $input['entry'][0]['messaging'][0]['message']['text'];
 
-
-
+if ( ! empty ($messageText ))
+  {$answer=" invalid";
 if($messageText == "hi") {
     $answer = "Hello";
-}else  {echo $answer=" invalid";}
+}
 $response = [
     'recipient' => [ 'id' => $senderId ],
     'message' => [ 'text' => $answer ]
@@ -29,3 +29,4 @@ curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($response));
 curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
 curl_exec($ch);
 curl_close($ch);
+  } 
