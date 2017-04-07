@@ -1,35 +1,97 @@
-<?php
-// parameters
-$hubVerifyToken = 'TOKEN12345bbaacc';
-$accessToken = "EAAIrEaAEYeABAKn8ZAf88b8OsSSZAhgVrM9s7QHTlYNuE5bONVce2rfsyswzbenf98nkLlatxaFgditzXMZBlZCNOuvt8vryM8G6JJfwXS4t12wt3GoFIzCMbId9tC0bUnM1rklJZC72oOYrZBzbcZANZCGINmk9zRrVuD5YXLxD6QZDZD";
+<?php 
 
-// check token at setup
-if ($_REQUEST['hub_verify_token'] === $hubVerifyToken) {
-  echo $_REQUEST['hub_challenge'];
-  exit;
+/*
+Description:
+Verifies email address
+Parameters:
+$Email - Email address to verify
+Returns:
+Array containing email verification result.
+*/
+function VerifyMail ( $Email )
+{
+global $FROM ; // FROM address. See settings section above
+global $EMAIL_REGEX ; // Email syntax verification Regex
+global $TCP_BUFFER_SIZE ; //TCP buffer size for mail server conversation.
+// $HTTP_HOST gets the host name of the server running the PHP script.
+$HTTP_HOST = $_SERVER [ "HTTP_HOST" ];
+// Prep up the function return.
+$Return = array();
+// Do the syntax validation using simple regex expression.
+// Eliminates basic syntax faults.
+if ( ! eregi ( $EMAIL_REGEX , $Email ))
+{
+$Return [ 0 ] = "Bad Syntax" ;
+return $Return ;
 }
-
-// handle bot's anwser
-$input = json_decode(file_get_contents('php://input'), true);
-
-$senderId = $input['entry'][0]['messaging'][0]['sender']['id'];
-$messageText = $input['entry'][0]['messaging'][0]['message']['text'];
-
-
-$answer = "I don't understand. Ask me 'hi'.";
-if($messageText == "hi") {
-    $answer = "Hello";
+// load the user and domain name into a local list from email address using string split functio
+list ( $Username , $Domain ) = split ( "@" , $Email );
+// check if domain has MX record(s)
+if ( checkdnsrr ( $Domain , "MX" ) )
+{
+$log .= "MX record for { $Domain } exists.\r" ;
+// Get DNS MX records from domain
+if ( getmxrr ( $Domain , $MXHost ))
+{
 }
-
-$response = [
-    'recipient' => [ 'id' => $senderId ],
-    'message' => [ 'text' => $answer ]
-];
-$ch = curl_init('https://graph.facebook.com/v2.6/me/messages?access_token='.$accessToken);
-curl_setopt($ch, CURLOPT_POST, 1);
-curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($response));
-curl_setopt($ch, CURLOPT_HTTPHEADER, ['Content-Type: application/json']);
-curl_exec($ch);
-curl_close($ch);
-
-//based on http://stackoverflow.com/questions/36803518
+// Get the IP address of first MX record
+$ConnectAddress = $MXHost [ 0 ];
+// Open TCP connection to IP address on port 25 (default SMTP port)
+$Connect = fsockopen ( $ConnectAddress , 25 );
+// Rerun array element index 1 contains the IP address of the target mail server
+$Return [ 1 ] = $ConnectAddress;
+// Successful connection to mail server.
+if ( $Connect )
+{
+$log .= "Connection to { $ConnectAddress } SMTP succeeded.\r" ;
+// look for a response code of 220 using Regex
+if ( ereg ( "^220" , $reply = fgets ( $Connect , $TCP_BUFFER_SIZE ) ) )
+{
+$log .= $reply . "\r" ;
+// Start SMTP conversation with HELO
+fputs ( $Connect , "HELO " . $HTTP_HOST . "\r\n" );
+$log .= "> HELO " . $HTTP_HOST . "\r" ;
+$reply = fgets ( $Connect , $TCP_BUFFER_SIZE );
+$log .= $reply . "\r" ;
+// Next, do MAIL FROM:
+fputs ( $Connect , "MAIL FROM: <" . $FROM . ">\r\n" );
+$log .= "> MAIL FROM: <" . $FROM . ">\r" ;
+$reply = fgets ( $Connect , $TCP_BUFFER_SIZE );
+$log .= $reply . "\r" ;
+// Next, do RCPT TO:
+fputs ( $Connect , "RCPT TO: <{ $Email }>\r\n" );
+$log .= "> RCPT TO: <{ $Email }>\r" ;
+$to_reply = fgets ( $Connect , $TCP_BUFFER_SIZE );
+$log .= $to_reply . "\r" ;
+// Quit the SMTP conversation.
+fputs ( $Connect , "QUIT\r\n" );
+// Close TCP connection
+fclose ( $Connect);
+}
+}
+else
+{
+// Return array element 0 contains a message.
+$Return [ 0 ] = "500 Can't connect mail server ({ $ConnectAddress })." ;
+return $Return ;
+}
+}
+else
+{
+$to_reply = "Domain '{ $Domain }' doesn't exist.\r" ;
+$log .= "MX record for '{ $Domain }' doesn't exist.\r" ;
+}
+$Return [ 0 ] = $to_reply ;
+$Return [ 2 ] = $log ;
+return $Return ;
+  }
+$result = VerifyMail( trim ("solokaso@gmail.com"));
+// SMTP code 250 shows email is valid.
+if ( substr ( $result [ 0], 0 , 3 ) == "250" )
+echo ( "<strong>Result</strong>: Email is OK" );
+else
+{
+echo ( "<strong>Result</strong>: Email is bad" );
+// The reason why it's bad.
+echo ( "<br/><br/> <strong>Description</strong>: " . $result [ 0 ]);
+}
