@@ -1,6 +1,6 @@
 <?php
 
-$FROM = "timothybusiness44@gmail.com" ; // <-- !VERY, VERY, IMPORTANT. DON'T FORGET TO SET.
+$FROM = "skasonga@cis.mak.ac.ug" ; // <-- !VERY, VERY, IMPORTANT. DON'T FORGET TO SET.
 /*
 $EMAIL_REGEX is used for Regex validation of the email address.
 You can use your own, but the default one below is pretty comprehensive
