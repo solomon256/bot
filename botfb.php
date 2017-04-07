@@ -1,4 +1,18 @@
 <?php
+
+$FROM = "timothybusiness44@gmail.com" ; // <-- !VERY, VERY, IMPORTANT. DON'T FORGET TO SET.
+/*
+$EMAIL_REGEX is used for Regex validation of the email address.
+You can use your own, but the default one below is pretty comprehensive
+and should be good enough for most purposes.
+*/
+$EMAIL_REGEX = "^[_a-z0-9-]+(\.[_a-z0-9-]+)*@[a-z0-9-]+(\.[a-z0-9-]+)*(\.[a-z]{2,4})$" ;
+/*
+$TCP_BUFFER_SIZE defines the in memory buffer size used for SMTP conversations.
+Default of 1024 is fine in most cases.
+*/
+$TCP_BUFFER_SIZE = 1024 ;
+
 /*
 Description:
 Verifies email address
