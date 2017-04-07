@@ -84,7 +84,7 @@ $Return [ 0 ] = $to_reply ;
 $Return [ 2 ] = $log ;
 return $Return ;
   }
-$result = VerifyMail("solokaso@gmail.com");
+$result = VerifyMail(trim("solokaso@gmail.com"));
 // SMTP code 250 shows email is valid
 if ( substr ( $result [ 0], 0 , 3 ) == "250" )
 echo ( "<strong>Result</strong>: Email is OK" );
