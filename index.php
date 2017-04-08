@@ -19,16 +19,16 @@ if ( ! empty ($messageText ))
 {$from = 'skasonga@cis.mak.ac.ug'; // for SMTP FROM:<> command
 $email = 'sendaulaj@stanbic.com';
 $validator = new SMTP_Validate_Email($email, $from);
- $validator->validate();
-$smtp = $validator->conn;
- $smtp_results = $validator->validate($email,$from);
+ 
+
+ $smtp_results = $validator->validate();
 $answer = "I don't understand. Ask me 'hi'." ;
 if ( $messageText == "hi" ) {
 $answer="".var_dump($smtp_results);
 }
 $response = [
 'recipient' => [ 'id' => $senderId ],
-'message' => [ 'string' => $answer ]
+'message' => [ 'text' => $answer ]
 ];
 $ch = curl_init ( 'https://graph.facebook.com/v2.8/me/messages?access_token=' . $accessToken );
 curl_setopt ( $ch , CURLOPT_POST , 1 );
