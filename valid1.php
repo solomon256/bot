@@ -14,6 +14,7 @@ echo "<pre>",var_dump($smtp_results),"</pre>";
 ob_start();
 var_dump($smtp_results);
  $result = ob_get_clean();
-echo  "KASONGA ".$result;
+echo $myString = print_r($result, TRUE);
+echo  "KASONGA ".$myString;
  
 ?>
