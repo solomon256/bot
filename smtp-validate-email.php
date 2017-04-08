@@ -405,7 +405,7 @@ class SMTP_Validate_Email {
     * @throws SMTP_Validate_Email_Exception_No_Connection
     * @throws SMTP_Validate_Email_Exception_No_Timeout
     */
-    public function connect($host) {
+    protected function connect($host) {
         $remote_socket = $host . ':' . $this->connect_port;
         $errnum = 0;
         $errstr = '';
