@@ -9,6 +9,6 @@ $validator = new SMTP_Validate_Email($email, $from);
 $smtp_results = $validator->validate();
  
 $list = "<pre>",var_dump($smtp_results),"</pre>";
- echo $list;
+ echo $list->domains;
 //cho  $smtp_results->email;
 ?>
