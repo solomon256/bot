@@ -8,6 +8,6 @@ $email = 'solokaso@gmail.com';
 $validator = new SMTP_Validate_Email($email, $from);
 $smtp_results = $validator->validate();
 
-var_dump($smtp_results);
+echo "<pre>",var_dump($smtp_results),"</pre>";
 
 ?>
