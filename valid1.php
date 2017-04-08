@@ -10,5 +10,5 @@ $smtp_results = $validator->validate();
  
 $lett= "<pre>",var_dump($smtp_results),"</pre>";
  echo $lett;
-$let=implode("array",$lett);
+//$let=implode("array",$lett);
 ?>
