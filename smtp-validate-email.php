@@ -852,10 +852,3 @@ class SMTP_Validate_Email {
 
 
 
-$from = 'skasonga@cis.mak.ac.ug'; // for SMTP FROM:<> command
-$email = 'solokaso@gmail.com';
-
-$validator = new SMTP_Validate_Email($email, $from);
-$smtp_results = $validator->validate();echo  "resuk". $smtp_results;
-var_dump($smtp_results);
-
