@@ -431,7 +431,7 @@ class SMTP_Validate_Email {
         if (!$result) {
             throw new SMTP_Validate_Email_Exception_No_Timeout('Cannot set timeout');
         }
-        return 'Connected to ' . $this->host . ' successfully';
+        return $this->host;
     }
 
     /**
