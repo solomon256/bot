@@ -6,7 +6,7 @@ $from = 'skasonga@cis.mak.ac.ug'; // for SMTP FROM:<> command
 $email = 'sendaulaj@yahoo.com';
 
 $validator = new SMTP_Validate_Email($email, $from);
-$smtp_results = $validator->validate();
+echo $smtp_results = $validator->validate();
 echo  print_r($smtp_results);
 //"<pre>",var_dump($smtp_results),"</pre>";
 // echo $list;
