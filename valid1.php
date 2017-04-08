@@ -1,5 +1,6 @@
 <?php
-
+public  $result="hi tim";
+ 
 require('smtp-validate-email.php');
 
 $from = 'skasonga@cis.mak.ac.ug'; // for SMTP FROM:<> command
