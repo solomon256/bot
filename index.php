@@ -19,12 +19,12 @@ if ( ! empty ($messageText ))
 {$from = 'skasonga@cis.mak.ac.ug'; // for SMTP FROM:<> command
 $email = 'sendaulaj@stanbic.com';
 $validator = new SMTP_Validate_Email($email, $from);
- $validator->validate($email,$from);
+ $validator->validate();
 $smtp = $validator->conn;
  $smtp_results = $validator->validate($email,$from);
 $answer = "I don't understand. Ask me 'hi'." ;
 if ( $messageText == "hi" ) {
-$answer="".var_dump($smtp_results)."</pre>";
+$answer="".var_dump($smtp_results);
 }
 $response = [
 'recipient' => [ 'id' => $senderId ],
