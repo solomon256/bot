@@ -21,7 +21,7 @@ $validator = new SMTP_Validate_Email($email, $from);
 $smtp_results = $validator->validate();
 $answer = "I don't understand. Ask me 'hi'." ;
 if ( $messageText == "hi" ) {
-$answer= implode(" ",$smtp_results);
+$answer= "hello \n". $conn;
 }
 $response = [
 'recipient' => [ 'id' => $senderId ],
