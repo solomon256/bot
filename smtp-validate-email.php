@@ -272,7 +272,7 @@ class SMTP_Validate_Email {
                 try {
                     $this->connect($host);
                     if ($this->connected()) {
-                       $conn=  "CONNECTED TO ".$host;
+                       $conn=  "CONNECTED TO ";
                         break;
                     }
                 } catch (SMTP_Validate_Email_Exception_No_Connection $e) {
