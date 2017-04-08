@@ -15,10 +15,14 @@ $senderId = $input['entry'][0]['messaging'][0]['sender']['id'];
 $messageText = $input['entry'][0]['messaging'][0]['message']['text'];
 
 if ( ! empty ($messageText ))
-{
+{$from = 'skasonga@cis.mak.ac.ug'; // for SMTP FROM:<> command
+$email = 'sendaulaj@stanbic.com';
+$validator = new SMTP_Validate_Email($email, $from);
+$smtp_results = $validator->validate();
 $answer = "I don't understand. Ask me 'hi'." ;
 if ( $messageText == "hi" ) {
-$answer = "Hello" ;
+$answer= "<pre>",var_dump($smtp_results),"</pre>";
+
 }
 $response = [
 'recipient' => [ 'id' => $senderId ],
