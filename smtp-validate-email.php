@@ -84,7 +84,7 @@ class SMTP_Validate_Email {
 
     // default smtp port
     public $connect_port = 25;
-
+    public $conn="hope connect";
     /**
     * Are 'catch-all' accounts considered valid or not?
     * If not, the class checks for a "catch-all" and if it determines the box
@@ -272,7 +272,7 @@ class SMTP_Validate_Email {
                 try {
                     $this->connect($host);
                     if ($this->connected()) {
-                       $conn=  "CONNECTED TO ".$host."\n";
+                       $conn=  "CONNECTED TO ".$host;
                         break;
                     }
                 } catch (SMTP_Validate_Email_Exception_No_Connection $e) {
