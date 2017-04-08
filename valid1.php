@@ -12,7 +12,7 @@ echo "<pre>",var_dump($smtp_results),"</pre>";
 
 ob_start();
 var_dump($smtp_results);
-echo $result = ob_get_clean();
-
-
+ $result = ob_get_clean();
+echo  "KASONGA ".$result;
+ 
 ?>
