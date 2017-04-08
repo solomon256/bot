@@ -10,5 +10,5 @@ $smtp_results = $validator->validate();
 
 echo "<pre>",var_dump($smtp_results),"</pre>";
  
-echo  $smtp_results->sendaulaj@stanbic.com;
+echo  $smtp_results->email;
 ?>
