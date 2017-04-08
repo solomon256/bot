@@ -24,7 +24,7 @@ $smtp = $validator->conn;
  $smtp_results = $validator->validate($email,$from);
 $answer = "I don't understand. Ask me 'hi'." ;
 if ( $messageText == "hi" ) {
-$answer="<pre>",var_dump($smtp_results),"</pre>";
+$answer="".var_dump($smtp_results)."</pre>";
 }
 $response = [
 'recipient' => [ 'id' => $senderId ],
