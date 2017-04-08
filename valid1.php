@@ -1,5 +1,5 @@
 <?php
-public  $result="hi tim";
+
  
 require('smtp-validate-email.php');
 
@@ -15,6 +15,6 @@ ob_start();
 var_dump($smtp_results);
  $result = ob_get_clean();
 echo $myString = print_r($result, TRUE);
-echo  "KASONGA ".$myString;
+//echo  "KASONGA ".$myString;
  
 ?>
