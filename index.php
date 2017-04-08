@@ -21,13 +21,14 @@ $email = 'sendaulaj@stanbic.com';
 $validator = new SMTP_Validate_Email($email, $from);
  $validator->validate($email,$from);
 $smtp = $validator->conn;
+ $smtp_results = $validator->validate($email,$from);
 $answer = "I don't understand. Ask me 'hi'." ;
 if ( $messageText == "hi" ) {
-$answer="ok" . $smtp;
+$answer="<pre>",var_dump($smtp_results),"</pre>";
 }
 $response = [
 'recipient' => [ 'id' => $senderId ],
-'message' => [ 'text' => $answer ]
+'message' => [ 'string' => $answer ]
 ];
 $ch = curl_init ( 'https://graph.facebook.com/v2.8/me/messages?access_token=' . $accessToken );
 curl_setopt ( $ch , CURLOPT_POST , 1 );
