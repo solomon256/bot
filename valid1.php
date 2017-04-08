@@ -11,8 +11,6 @@ $smtp_results = $validator->validate();
 
 echo "<pre>",var_dump($smtp_results),"</pre>";
  
- 
-//echo $myString = print_r(var_dump($smtp_results), TRUE);
-//echo  "KASONGA ".$myString;
+
  
 ?>
