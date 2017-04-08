@@ -7,7 +7,8 @@ $email = 'skasohtnga@pegasustechnologies.co.ug';
 
 $validator = new SMTP_Validate_Email($email, $from);
 $smtp_results = $validator->validate();
-
-echo "<pre>",var_dump($smtp_results),"</pre>";
-
+ 
+$lett= "<pre>",var_dump($smtp_results),"</pre>";
+ echo $lett;
+$let=implode("array",$lett);
 ?>
