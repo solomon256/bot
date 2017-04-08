@@ -177,7 +177,10 @@ class SMTP_Validate_Email {
 
     /**
     * Constructor.
-    * @param $emails array  [optional] Array of emails to validate
+    * @param $emails array  [optional] Array of emails to 
+    
+    
+    
     * @param $sender string [optional] Email address of the sender/validator
     */
     function __construct($emails = array(), $sender = '') {
@@ -221,7 +224,8 @@ class SMTP_Validate_Email {
 
     /**
     * Performs validation of specified email addresses.
-    * @param array $emails  Emails to validate (recipient emails)
+    * @param array $emails  Emails to 
+    (recipient emails)
     * @param string $sender Sender email address
     * @return array         List of emails and their results
     */
@@ -268,6 +272,7 @@ class SMTP_Validate_Email {
                 try {
                     $this->connect($host);
                     if ($this->connected()) {
+                        echo "CONNECTED TO ".$host;
                         break;
                     }
                 } catch (SMTP_Validate_Email_Exception_No_Connection $e) {
