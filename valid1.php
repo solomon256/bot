@@ -8,5 +8,5 @@ $email = 'skasohtnga@pegasustechnologies.co.ug';
 $validator = new SMTP_Validate_Email($email, $from);
 $smtp_results = $validator->validate();
  
-var_dump($smtp_results); 
+echo  "hi";
  
