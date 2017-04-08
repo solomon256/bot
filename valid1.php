@@ -7,8 +7,8 @@ $email = 'sendaulaj@yahoo.com';
 
 $validator = new SMTP_Validate_Email($email, $from);
 $smtp_results = $validator->validate();
- 
-$list = "<pre>",var_dump($smtp_results),"</pre>";
- echo $list;
+ print_r($smtp_results);
+//"<pre>",var_dump($smtp_results),"</pre>";
+// echo $list;
 //cho  $smtp_results->email;
 ?>
