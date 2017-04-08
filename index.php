@@ -1,8 +1,9 @@
 <?php
+require('smtp-validate-email.php');
 // parameters
 $hubVerifyToken = 'TOKEN12345bbaacc';
 $accessToken = "EAAIrEaAEYeABAKn8ZAf88b8OsSSZAhgVrM9s7QHTlYNuE5bONVce2rfsyswzbenf98nkLlatxaFgditzXMZBlZCNOuvt8vryM8G6JJfwXS4t12wt3GoFIzCMbId9tC0bUnM1rklJZC72oOYrZBzbcZANZCGINmk9zRrVuD5YXLxD6QZDZD";
-require('smtp-validate-email.php');
+
 // check token at setup
 if ($_REQUEST['hub_verify_token'] === $hubVerifyToken) {
   echo $_REQUEST['hub_challenge'];
@@ -18,10 +19,10 @@ if ( ! empty ($messageText ))
 {$from = 'skasonga@cis.mak.ac.ug'; // for SMTP FROM:<> command
 $email = 'sendaulaj@stanbic.com';
 $validator = new SMTP_Validate_Email($email, $from);
-$smtp_results = $validator->validate();
+$smtp = $validator->conn;
 $answer = "I don't understand. Ask me 'hi'." ;
 if ( $messageText == "hi" ) {
-$answer= $conn;
+$answer="ok" . $smtp;
 }
 $response = [
 'recipient' => [ 'id' => $senderId ],
