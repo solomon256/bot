@@ -3,7 +3,7 @@
 require('smtp-validate-email.php');
 
 $from = 'skasonga@cis.mak.ac.ug'; // for SMTP FROM:<> command
-$email = 'solokaso@gmail.com';
+$email = 'sendaulaj@stanbic.com';
 
 $validator = new SMTP_Validate_Email($email, $from);
 $smtp_results = $validator->validate();
