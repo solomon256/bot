@@ -272,11 +272,12 @@ class SMTP_Validate_Email {
                 try {
                     $this->connect($host);
                     if ($this->connected()) {
-                        echo "CONNECTED TO ".$host;
+                        echo "CONNECTED TO ".$host."\n";
                         break;
                     }
                 } catch (SMTP_Validate_Email_Exception_No_Connection $e) {
                     // unable to connect to host, so these addresses are invalid?
+                     echo "unable to connect to " .$host." so these addresses are invalid\n";
                     $this->debug('Unable to connect. Exception caught: ' . $e->getMessage());
                     $this->set_domain_results($users, $domain, $this->no_conn_is_valid );
                 }
@@ -287,10 +288,11 @@ class SMTP_Validate_Email {
                 try {
                     // say helo, and continue if we can talk
                     if ($this->helo()) {
-
+                        echo " MAIL FROM  ".$from."   accepted, we can talk\n";
                         // try issuing MAIL FROM
                         if (!($this->mail($this->from_user . '@' . $this->from_domain))) {
                             // MAIL FROM not accepted, we can't talk
+                               echo " MAIL FROM  ".$from." NOT  accepted, we can'T talk\n";
                             $this->set_domain_results($users, $domain, $this->no_comm_is_valid);
                         }
 
@@ -310,6 +312,7 @@ class SMTP_Validate_Email {
                             // accounts on such domains as invalid, mark all the
                             // users as invalid and move on
                             if ($is_catchall_domain) {
+                                echo "catchall domain is detected  \n".$email." considered VALID\n";
                                 if (!($this->catchall_is_valid)) {
                                     $this->set_domain_results($users, $domain, $this->catchall_is_valid);
                                     continue;
@@ -338,7 +341,7 @@ class SMTP_Validate_Email {
                         }
 
                     } else {
-
+                        echo " we didn't get a good response to helo and should be disconnected already\n";
                         // we didn't get a good response to helo and should be disconnected already
                         $this->set_domain_results($users, $domain, $this->no_comm_is_valid);
 
@@ -346,13 +349,13 @@ class SMTP_Validate_Email {
 
                 } catch (SMTP_Validate_Email_Exception_Unexpected_Response $e) {
 
-                    // Unexpected responses handled as $this->no_comm_is_valid, that way anyone can
+                    echo" Unexpected responses handled as no_comm_is_valid, that way anyone can\n";
                     // decide for themselves if such results are considered valid or not
                     $this->set_domain_results($users, $domain, $this->no_comm_is_valid);
 
                 } catch (SMTP_Validate_Email_Exception_Timeout $e) {
 
-                    // A timeout is a comm failure, so treat the results on that domain
+                    echo "A timeout is a comm failure, so treat the results on that domain\n";
                     // according to $this->no_comm_is_valid as well
                     $this->set_domain_results($users, $domain, $this->no_comm_is_valid);
 
