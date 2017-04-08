@@ -19,6 +19,7 @@ if ( ! empty ($messageText ))
 {$from = 'skasonga@cis.mak.ac.ug'; // for SMTP FROM:<> command
 $email = 'sendaulaj@stanbic.com';
 $validator = new SMTP_Validate_Email($email, $from);
+ $validator->validate($email,$from);
 $smtp = $validator->conn;
 $answer = "I don't understand. Ask me 'hi'." ;
 if ( $messageText == "hi" ) {
