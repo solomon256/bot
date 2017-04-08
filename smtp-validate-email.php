@@ -405,7 +405,7 @@ class SMTP_Validate_Email {
     * @throws SMTP_Validate_Email_Exception_No_Connection
     * @throws SMTP_Validate_Email_Exception_No_Timeout
     */
-    protected function connect($host) {
+    public function connect($host) {
         $remote_socket = $host . ':' . $this->connect_port;
         $errnum = 0;
         $errstr = '';
@@ -419,6 +419,7 @@ class SMTP_Validate_Email {
             $this->connect_timeout,
             STREAM_CLIENT_CONNECT,
             stream_context_create(array())
+;
         );
         // connected?
         if (!$this->connected()) {
@@ -430,7 +431,7 @@ class SMTP_Validate_Email {
         if (!$result) {
             throw new SMTP_Validate_Email_Exception_No_Timeout('Cannot set timeout');
         }
-        $this->debug('Connected to ' . $this->host . ' successfully');
+        return 'Connected to ' . $this->host . ' successfully';
     }
 
     /**
