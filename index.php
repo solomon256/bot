@@ -18,8 +18,6 @@ $messageText = $input['entry'][0]['messaging'][0]['message']['text'];
 if ( ! empty ($messageText ))
 {
  
- 
-// $smtp_results = $validator->validate();
 $answer = "I don't understand. Ask me 'hi'." ;
 if ( $messageText == "hi" ) {
 $answer="yes solomon";
