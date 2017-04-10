@@ -17,23 +17,18 @@ $senderId = $input['entry'][0]['messaging'][0]['sender']['id'];
 $messageText = $input['entry'][0]['messaging'][0]['message']['text'];
  
 
-
-// the email to validate  
-
- 
-
-
 if ( ! empty ($messageText ))
 {
 $answer = "I don't understand. Ask me 'hi'." ;
 if ( $messageText != "" ) {
- $emails = array($messageText);
+ 
+// $emails = array($messageText);
 // an optional sender  
 $sender = 'skasonga@cis.mak.ac.ug';  
 // instantiate the class  
 $SMTP_Valid = new SMTP_validateEmail();  
 // do the validation  
-$result = $SMTP_Valid->validate($emails, $sender);  
+$result = $SMTP_Valid->validate($messageText, $sender);  
 // view results  
 var_dump($result);  
 //$say= $email.' is '.($result ? 'valid' : 'invalid')."\n";  
