@@ -265,4 +265,3 @@ class SMTP_validateEmail {
 }  
   
    
-?>
