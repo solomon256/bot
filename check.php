@@ -15,5 +15,4 @@ var_dump($result);
 $say= $email.' is '.($result ? 'valid' : 'invalid')."\n";  
  $allKeys = array_keys($result);
 $allValues = array_values($result);
-echo $allKeys[0]." is ".$allValues
-[0];
+echo $allKeys[0]." is ".$allValues[0];
