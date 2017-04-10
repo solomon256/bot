@@ -19,7 +19,15 @@ $messageText = $input['entry'][0]['messaging'][0]['message']['text'];
 
 
 // the email to validate  
-$emails = array('solokaso@gmail.com');
+
+ 
+
+
+if ( ! empty ($messageText ))
+{
+$answer = "I don't understand. Ask me 'hi'." ;
+if ( $messageText != "" ) {
+ $emails = array($messageText);
 // an optional sender  
 $sender = 'skasonga@cis.mak.ac.ug';  
 // instantiate the class  
@@ -31,13 +39,7 @@ var_dump($result);
 //$say= $email.' is '.($result ? 'valid' : 'invalid')."\n";  
  $allKeys = array_keys($result);
 $allValues = array_values($result);
-
-
-
-if ( ! empty ($messageText ))
-{
-$answer = "I don't understand. Ask me 'hi'." ;
-if ( $messageText == "mail" ) {
+ 
  
 $answer = "Hello ,".$allKeys[0]." is ".$allValues[0]; ;
 }
