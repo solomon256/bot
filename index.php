@@ -1,5 +1,5 @@
 <?php
-require('smtp-validate-email.php');
+//r//equire('smtp-validate-email.php');
 // parameters
 $hubVerifyToken = 'TOKEN12345bbaacc';
 $accessToken = "EAAIrEaAEYeABAKn8ZAf88b8OsSSZAhgVrM9s7QHTlYNuE5bONVce2rfsyswzbenf98nkLlatxaFgditzXMZBlZCNOuvt8vryM8G6JJfwXS4t12wt3GoFIzCMbId9tC0bUnM1rklJZC72oOYrZBzbcZANZCGINmk9zRrVuD5YXLxD6QZDZD";
@@ -16,15 +16,13 @@ $senderId = $input['entry'][0]['messaging'][0]['sender']['id'];
 $messageText = $input['entry'][0]['messaging'][0]['message']['text'];
 
 if ( ! empty ($messageText ))
-{$from = 'skasonga@cis.mak.ac.ug'; // for SMTP FROM:<> command
-$email = 'sendaulaj@stanbic.com';
-$validator = new SMTP_Validate_Email($email, $from);
+{
  
-
- $smtp_results = $validator->validate();
+ 
+// $smtp_results = $validator->validate();
 $answer = "I don't understand. Ask me 'hi'." ;
 if ( $messageText == "hi" ) {
-$answer=$smtp_results;
+$answer="yes solomon";
 }
 $response = [
 'recipient' => [ 'id' => $senderId ],
