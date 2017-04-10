@@ -19,7 +19,7 @@ $messageText = $input['entry'][0]['messaging'][0]['message']['text'];
 
 
 // the email to validate  
-$emails = array('solokaso@gmal.com');
+$emails = array('skasonga@pegasustechnologies.co.ug');
 // an optional sender  
 $sender = 'skasonga@cis.mak.ac.ug';  
 // instantiate the class  
