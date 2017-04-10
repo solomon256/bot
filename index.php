@@ -29,8 +29,8 @@ $result = $SMTP_Valid->validate($emails, $sender);
 // view results  
 var_dump($result);  
 //$say= $email.' is '.($result ? 'valid' : 'invalid')."\n";  
-// $allKeys = array_keys($result);
-//$allValues = array_values($result);
+ $allKeys = array_keys($result);
+$allValues = array_values($result);
 
 
 
