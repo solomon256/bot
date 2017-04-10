@@ -3,7 +3,7 @@
 require_once("smtpvalidateclass.php");
 
 // the email to validate  
-$emails = array('solokaso@gmal.com');
+$emails = array('pkavule@pegasustechnologies.co.ug');
 // an optional sender  
 $sender = 'skasonga@cis.mak.ac.ug';  
 // instantiate the class  
