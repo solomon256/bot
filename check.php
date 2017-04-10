@@ -13,5 +13,5 @@ $result = $SMTP_Valid->validate($emails, $sender);
 // view results  
 var_dump($result);  
 $say= $email.' is '.($result ? 'valid' : 'invalid')."\n";  
-  echo "Kasonga ".$say;
+  echo $result{0};
 // send email?   
