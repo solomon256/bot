@@ -37,7 +37,8 @@ $allValues = array_values($result);
 if ( ! empty ($messageText ))
 {
 $answer = "I don't understand. Ask me 'hi'." ;
-if ( $messageText == "hi" ) {
+if ( $messageText == "mail" ) {
+ 
 $answer = "Hello ,".$allKeys[0]." is ".$allValues[0]; ;
 }
 $response = [
