@@ -15,8 +15,3 @@ var_dump($result);
 echo $email.' is '.($result ? 'valid' : 'invalid')."\n";  
   
 // send email?   
-if ($result) {  
-  //mail(...);  
-}
-
-?>  
