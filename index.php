@@ -1,6 +1,6 @@
 <?php
 // parameters
-echo  "200"
+echo  "200";
  
  
  print_r($_SERVER);
